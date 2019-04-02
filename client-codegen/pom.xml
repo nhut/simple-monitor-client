@@ -5,11 +5,10 @@
     <parent>
         <artifactId>simple-monitor-client</artifactId>
         <groupId>fi.donhut</groupId>
-        <version>0.0.1</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>client-codegen</artifactId>
-    <version>0.0.1</version>
     <name>client-codegen</name>
     <packaging>jar</packaging>
 
