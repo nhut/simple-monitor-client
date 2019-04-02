@@ -10,9 +10,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>fi.donhut</groupId>
-    <artifactId>simple-monitor-client</artifactId>
+    <artifactId>simple-monitor-client-root</artifactId>
     <version>1.0.0</version>
-    <name>simple-monitor-client</name>
+    <name>simple-monitor-client-root</name>
     <description>Simple Monitor client.</description>
     <url>https://github.com/nhut/simple-monitor-client</url>
     <packaging>pom</packaging>

@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>simple-monitor-client</artifactId>
+        <artifactId>simple-monitor-client-root</artifactId>
         <groupId>fi.donhut</groupId>
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>client-codegen</artifactId>
-    <name>client-codegen</name>
+    <artifactId>simple-monitor-client-codegen</artifactId>
+    <name>simple-monitor-client-codegen</name>
     <packaging>jar</packaging>
 
     <properties>
