@@ -10,7 +10,7 @@
 #define MyAppExeName "simple-monitor-client-windows.exe"
 #define IncludeFramework true
 #define AppTargetFolder ".\client\target\"
-#define JavaRuntime "c:\java\jre8"
+#define JavaRuntime "C:\java\openjdk-jre8"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -29,10 +29,10 @@ DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 OutputBaseFilename=simple-monitor-client-windows-installer
 UninstallDisplayIcon={app}\{#MyAppExeName}
-Compression=lzma
+Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
-; LicenseFile=..\LICENSE
+LicenseFile=LICENSE
 ; InfoBeforeFile=.\basic\doc\Requirements.rtf
 ; InfoAfterFile=.\basic\doc\Readme.rtf
 
@@ -85,5 +85,5 @@ Filename: "{cmd}"; Parameters: "/C ""taskkill /im javaw.exe /f /t"
 [Code]
 procedure MyAfterInstall(FileName: String);
 begin
-  MsgBox('You need to configure "' + FileName + '" configuration file. If application is running, you can do it though system tray, right click on it, edit configuration and after edit restart.', mbInformation, MB_OK);
+  MsgBox('You need to configure "' + FileName + '" configuration file. If application is running, you can do it though system tray, right click on it, edit configuration and after edit, restart the application.', mbInformation, MB_OK);
 end;
