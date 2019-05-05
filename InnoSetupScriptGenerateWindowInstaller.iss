@@ -68,7 +68,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "{#JavaRuntime}\*"; DestDir: "{app}\jre"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#AppTargetFolder}classes\application.properties"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#AppTargetFolder}classes\images\icons\antenna.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#AppTargetFolder}simple-monitor-client-windows.exe"; DestDir: "{app}"; Flags: ignoreversion; AfterInstall: MyAfterInstall({app} + '/application.properties')
+Source: "{#AppTargetFolder}simple-monitor-client-windows.exe"; DestDir: "{app}"; Flags: ignoreversion; AfterInstall: MyAfterInstall('{app}/application.properties')
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
