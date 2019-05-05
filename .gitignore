@@ -31,6 +31,9 @@ HELP.md
 ### Visual Studio Code ###
 .vscode
 
+### Inno setup compiler ###
+Output
+
 # Log file
 *.log
 
