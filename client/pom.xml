@@ -110,6 +110,7 @@
                             <classPath>
                                 <mainClass>org.springframework.boot.loader.JarLauncher</mainClass>
                             </classPath>
+                            <icon>${project.basedir}/src/main/resources/images/icons/antenna.ico</icon>
                             <singleInstance>
                                 <mutexName>${project.name}</mutexName>
                                 <windowTitle>${project.name}</windowTitle>
@@ -124,7 +125,7 @@
                             <messages>
                                 <startupErr>An error occurred while starting the application.</startupErr>
                                 <bundledJreErr>This application was configured to use a bundled Java Runtime Environment (JRE) but the runtime is missing or corrupted.
-                                If you have JRE installed, copy JRE-folder to the same the same folder where your application is running under /jre</bundledJreErr>
+                                If you have JRE installed, copy JRE-folder to the same the same folder where your application is running under "/jre".</bundledJreErr>
                                 <jreVersionErr>This application requires a Java Runtime Environment</jreVersionErr>
                                 <launcherErr>The registry refers to a nonexistent Java Runtime Environment installation or the runtime is corrupted.</launcherErr>
                                 <instanceAlreadyExistsMsg>An application instance is already running.</instanceAlreadyExistsMsg>
