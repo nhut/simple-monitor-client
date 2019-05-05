@@ -15,9 +15,15 @@
  */
 package fi.donhut.simplemonitorclient;
 
-import org.springframework.boot.SpringApplication;
+import fi.donhut.simplemonitorclient.ui.AppTrayIcon;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
+import java.awt.*;
 
 /**
  * Main application.
@@ -28,7 +34,27 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class SimpleMonitorClientApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SimpleMonitorClientApplication.class, args);
+	private static final Logger LOG = LoggerFactory.getLogger(SimpleMonitorClientApplication.class);
+
+	private static ConfigurableApplicationContext applicationContext;
+	private static AppTrayIcon appTrayIcon;
+
+	public static void main(String[] args) throws AWTException {
+		final SpringApplicationBuilder builder = new SpringApplicationBuilder(SimpleMonitorClientApplication.class);
+		builder.headless(false);
+		applicationContext = builder.run(args);
+
+		appToRunInSystemTrayIfSupported(applicationContext);
+	}
+
+	private static void appToRunInSystemTrayIfSupported(
+			final ConfigurableApplicationContext applicationContext) throws AWTException {
+		if (SystemTray.isSupported()) {
+			LOG.debug("----System tray is supported. Creating system tray...");
+			appTrayIcon = new AppTrayIcon(applicationContext);
+			LOG.info("-----Created system tray for this application.");
+			return;
+		}
+		LOG.debug("-----System tray is NOT supported. Skip create system tray for the application.");
 	}
 }
