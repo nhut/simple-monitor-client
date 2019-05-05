@@ -23,6 +23,8 @@ import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -78,6 +80,7 @@ public class AppTrayIcon extends java.awt.TrayIcon {
         popupMenu.add(appName);
         popupMenu.addSeparator();
         popupMenu.add(createMenuItemToLogFolder());
+        popupMenu.add(createMenuItemOpenConfigFile());
         popupMenu.addSeparator();
         popupMenu.add(createMenuItemRestart());
         popupMenu.add(createMenuItemExit());
@@ -98,12 +101,35 @@ public class AppTrayIcon extends java.awt.TrayIcon {
                     Runtime.getRuntime().exec("explorer.exe " + logFolderPath);
                 } else {
                     final String messageText = "It's currently NOT supported." + " If you needed, make "
-                            + "GitHub issue or make git pull request";
+                            + "GitHub issue or git pull request.";
                     javax.swing.JOptionPane.showMessageDialog(null, messageText, appName,
                             javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (IOException ex) {
                 final String errorText = "Unable to open folder: " + logFolder;
+                javax.swing.JOptionPane.showMessageDialog(null, errorText, appName,
+                        javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        return menuItem;
+    }
+
+    private MenuItem createMenuItemOpenConfigFile() {
+        final MenuItem menuItem = new MenuItem("Open config file");
+        menuItem.addActionListener(e -> {
+            try {
+                Path configFilePath = Paths.get(Paths.get("").toAbsolutePath().toString(),
+                        "application.properties");
+                if (SystemUtils.isWindowsOS()) {
+                    Runtime.getRuntime().exec("notepad.exe " + configFilePath);
+                } else {
+                    final String messageText = "It's currently NOT supported." + " If you needed, make "
+                            + "GitHub issue or git pull request.";
+                    javax.swing.JOptionPane.showMessageDialog(null, messageText, appName,
+                            javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (IOException ex) {
+                final String errorText = "Unable to file: " + logFolder;
                 javax.swing.JOptionPane.showMessageDialog(null, errorText, appName,
                         javax.swing.JOptionPane.ERROR_MESSAGE);
             }
@@ -117,12 +143,12 @@ public class AppTrayIcon extends java.awt.TrayIcon {
             final ApplicationArguments applicationArguments =
                     applicationContext.getBean(ApplicationArguments.class);
 
-            Thread thread = new Thread(() -> {
+            final Thread thread = new Thread(() -> {
                 applicationContext.close();
-                applicationContext = SpringApplication.run(SimpleMonitorClientApplication.class,
+                applicationContext = SpringApplication.run(
+                        SimpleMonitorClientApplication.class,
                         applicationArguments.getSourceArgs());
             });
-
             thread.setDaemon(false);
             thread.start();
         });
