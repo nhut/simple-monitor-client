@@ -15,6 +15,7 @@
  */
 package fi.donhut.simplemonitorclient.ui;
 
+import fi.donhut.simplemonitorclient.SimpleMonitorClientApplication;
 import fi.donhut.simplemonitorclient.util.SystemUtils;
 import java.awt.AWTException;
 import java.awt.MenuItem;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -41,7 +43,7 @@ public class AppTrayIcon extends java.awt.TrayIcon {
     private static final String IMAGE_PATH = "/images/icons/antenna.png";
     private static final String TOOLTIP = "Simple monitor";
 
-    private final ConfigurableApplicationContext applicationContext;
+    private ConfigurableApplicationContext applicationContext;
     private final SystemTray systemTray;
     private final String appName;
     private final String logFolder;
@@ -77,6 +79,7 @@ public class AppTrayIcon extends java.awt.TrayIcon {
         popupMenu.addSeparator();
         popupMenu.add(createMenuItemToLogFolder());
         popupMenu.addSeparator();
+        popupMenu.add(createMenuItemRestart());
         popupMenu.add(createMenuItemExit());
         setPopupMenu(popupMenu);
         return popupMenu;
@@ -104,6 +107,24 @@ public class AppTrayIcon extends java.awt.TrayIcon {
                 javax.swing.JOptionPane.showMessageDialog(null, errorText, appName,
                         javax.swing.JOptionPane.ERROR_MESSAGE);
             }
+        });
+        return menuItem;
+    }
+
+    private MenuItem createMenuItemRestart() {
+        final MenuItem menuItem = new MenuItem("Restart (for config change)");
+        menuItem.addActionListener(e -> {
+            final ApplicationArguments applicationArguments =
+                    applicationContext.getBean(ApplicationArguments.class);
+
+            Thread thread = new Thread(() -> {
+                applicationContext.close();
+                applicationContext = SpringApplication.run(SimpleMonitorClientApplication.class,
+                        applicationArguments.getSourceArgs());
+            });
+
+            thread.setDaemon(false);
+            thread.start();
         });
         return menuItem;
     }
