@@ -70,6 +70,9 @@
                             <mainClass>fi.donhut.simplemonitorclient.SimpleMonitorClientApplication</mainClass>
                         </manifest>
                     </archive>
+                    <excludes>
+                        <exclude>application-my.properties</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
 
