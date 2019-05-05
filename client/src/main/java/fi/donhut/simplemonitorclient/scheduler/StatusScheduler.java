@@ -25,7 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
@@ -49,7 +48,7 @@ public class StatusScheduler {
         try {
             final Computer computer = DataCollectorUtil.getComputer();
             computerControllerApi.receivePcDataUsingPUT(computer);
-            LOG.info("Data sent... {}", computer.toString());
+            LOG.info("Data sent... {}", computer);
 
         } catch (UnknownHostException e) {
             LOG.error("Unable to resolve hostname: {}", e.getMessage());

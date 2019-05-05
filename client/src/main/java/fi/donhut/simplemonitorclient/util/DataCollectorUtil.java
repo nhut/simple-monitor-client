@@ -36,7 +36,7 @@ public class DataCollectorUtil {
     public static Computer getComputer() throws UnknownHostException {
         final Computer pc = new Computer();
         pc.setName(getHostName());
-        pc.setCpuLoadPercent(getOperatingSystemBean().getSystemCpuLoad()*100.00);
+        pc.setCpuLoadPercent(getOperatingSystemBean().getSystemCpuLoad() * 100.00);
         pc.setIpAddress(InetAddress.getLocalHost().toString());
         pc.setMemoryUsageInBytes(getUsedMemory());
         pc.setFreeSpaceLeftInBytes(getDriveFreeSpace());
