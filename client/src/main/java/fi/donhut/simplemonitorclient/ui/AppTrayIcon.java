@@ -18,13 +18,19 @@ package fi.donhut.simplemonitorclient.ui;
 import fi.donhut.simplemonitorclient.SimpleMonitorClientApplication;
 import fi.donhut.simplemonitorclient.util.SystemUtils;
 import java.awt.AWTException;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
+import java.awt.TrayIcon;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -38,7 +44,7 @@ import org.springframework.core.env.Environment;
  *
  * @author Nhut Do (mr.nhut@gmail.com)
  */
-public class AppTrayIcon extends java.awt.TrayIcon {
+public class AppTrayIcon extends TrayIcon {
 
     private static final Logger LOG = LoggerFactory.getLogger(AppTrayIcon.class);
 
@@ -66,7 +72,7 @@ public class AppTrayIcon extends java.awt.TrayIcon {
         systemTray.add(this);
     }
 
-    private static java.awt.Image createImage(final String imagePath, final String description) {
+    private static Image createImage(final String imagePath, final String description) {
         final URL imageURL = AppTrayIcon.class.getResource(imagePath);
         if (imageURL == null) {
             LOG.error("Failed to create image. Resource not found: {}", imagePath);
@@ -75,17 +81,21 @@ public class AppTrayIcon extends java.awt.TrayIcon {
         return new javax.swing.ImageIcon(imageURL, description).getImage();
     }
 
-    private java.awt.PopupMenu createSystemTrayPopupMenu() {
-        final java.awt.PopupMenu popupMenu = new PopupMenu();
-        popupMenu.add(appName);
+    private PopupMenu createSystemTrayPopupMenu() {
+        final PopupMenu popupMenu = new PopupMenu();
+        popupMenu.setFont(new Font("Verdana", Font.PLAIN, 18));
+        popupMenu.add(getAppNameAndVersion());
         popupMenu.addSeparator();
         popupMenu.add(createMenuItemToLogFolder());
         popupMenu.add(createMenuItemOpenConfigFile());
         popupMenu.addSeparator();
         popupMenu.add(createMenuItemRestart());
         popupMenu.add(createMenuItemExit());
-        setPopupMenu(popupMenu);
         return popupMenu;
+    }
+
+    private String getAppNameAndVersion() {
+        return appName + " v" + this.getClass().getPackage().getImplementationVersion();
     }
 
     private MenuItem createMenuItemToLogFolder() {
