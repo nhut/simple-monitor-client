@@ -28,9 +28,6 @@ HELP.md
 /.nb-gradle/
 /build/
 
-### Visual Studio Code ###
-.vscode
-
 # Log file
 *.log
 
