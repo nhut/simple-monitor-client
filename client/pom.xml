@@ -43,6 +43,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -80,6 +85,51 @@
                         <goals>
                             <goal>build-info</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin> <!-- Creates executable file for Windows. -->
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>1.7.21</version>
+                <executions>
+                    <execution>
+                        <id>l4j-pampass</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <!-- <headerType>console</headerType> -->
+                            <headerType>gui</headerType>
+                            <dontWrapJar>false</dontWrapJar>
+                            <jar>${project.build.directory}/${project.build.finalName}.${project.packaging}</jar>
+                            <outfile>${project.build.directory}/${project.artifactId}-windows.exe</outfile>
+                            <downloadUrl>https://github.com/ojdkbuild/ojdkbuild/releases</downloadUrl>
+                            <classPath>
+                                <mainClass>org.springframework.boot.loader.JarLauncher</mainClass>
+                            </classPath>
+                            <singleInstance>
+                                <mutexName>${project.name}</mutexName>
+                                <windowTitle>${project.name}</windowTitle>
+                            </singleInstance>
+                            <jre>
+                                <path>jre</path>
+                                <!-- <path>${java.home}</path> -->
+                                <bundledJre64Bit>true</bundledJre64Bit>
+                                <jdkPreference>jreOnly</jdkPreference>
+                                <runtimeBits>64/32</runtimeBits>
+                            </jre>
+                            <messages>
+                                <startupErr>An error occurred while starting the application.</startupErr>
+                                <bundledJreErr>This application was configured to use a bundled Java Runtime Environment (JRE) but the runtime is missing or corrupted.
+                                If you have JRE installed, copy JRE-folder to the same the same folder where your application is running under /jre</bundledJreErr>
+                                <jreVersionErr>This application requires a Java Runtime Environment</jreVersionErr>
+                                <launcherErr>The registry refers to a nonexistent Java Runtime Environment installation or the runtime is corrupted.</launcherErr>
+                                <instanceAlreadyExistsMsg>An application instance is already running.</instanceAlreadyExistsMsg>
+                            </messages>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
