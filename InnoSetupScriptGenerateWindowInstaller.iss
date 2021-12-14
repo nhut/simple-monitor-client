@@ -4,13 +4,13 @@
 
 ; Preprocessor variables
 #define MyAppName "SimpleMonitorClient"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.2.0"
 #define MyAppPublisher "Nhut Do"
 #define MyAppURL "https://github.com/nhut/simple-monitor-client"
 #define MyAppExeName "simple-monitor-client-windows.exe"
 #define IncludeFramework true
 #define AppTargetFolder ".\client\target\"
-#define JavaRuntime "C:\java\openjdk-jre8"
+#define JavaRuntime "C:\java\jre8"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
