@@ -5,7 +5,7 @@
     <parent>
         <artifactId>simple-monitor-client-root</artifactId>
         <groupId>fi.donhut</groupId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
     </parent>
 
     <artifactId>simple-monitor-client</artifactId>
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>fi.donhut</groupId>
             <artifactId>simple-monitor-client-codegen</artifactId>
-            <version>1.1.0</version>
+            <version>1.2.0</version>
         </dependency>
 
         <dependency>
