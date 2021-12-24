@@ -4,7 +4,7 @@
 
 ; Preprocessor variables
 #define MyAppName "SimpleMonitorClient"
-#define MyAppVersion "1.2.1"
+#define MyAppVersion "2.0.0"
 #define MyAppPublisher "Nhut Do"
 #define MyAppURL "https://github.com/nhut/simple-monitor-client"
 #define MyAppExeName "simple-monitor-client-windows.exe"
